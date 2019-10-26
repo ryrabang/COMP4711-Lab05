@@ -1,0 +1,91 @@
+.title {
+    margin: auto;
+    width: 45%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.popupForm {
+    margin: auto;
+    width: 35%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#popup {
+    display: none;
+}
+
+input {
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid rgb(236, 235, 235)
+}
+
+.btn {
+    
+    font-size: 20px;
+}
+
+.button {
+    padding-top: 25px;
+    float: right;
+    margin: auto;
+}
+
+.search {
+    width: 75%;
+    font-size: 20px;
+    float: left;
+}
+
+.artistForm {
+    width: 100%;
+    font-size: 20px;
+    float: left;
+}
+
+.card {
+    border: 1px solid rgb(236, 235, 235);
+    transition: 0.3s;
+    margin: auto;
+    width: 30%;
+    overflow: auto;
+    border-radius: px;
+}
+
+.card .image {
+    float: left;
+    padding: 2px 16px;
+}
+
+.text {
+    padding-left: 10px;
+    padding-top: 10px;
+    float: left;
+}
+
+.text .name {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+.text .quote {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+  
+.card:hover {
+    background-color: rgb(241, 238, 238);
+}
+  
+.container {
+    padding: 2px 16px;
+    vertical-align: center;
+}
+
+.delete {
+    background-color: crimson;
+    float: right;
+    margin: auto;
+    border-radius: 8px;
+    color: white;
+}

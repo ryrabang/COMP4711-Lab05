@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Artist App
+    </title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="./scripts.js"></script>
+</head>
+<body onload="initialize();">
+    <div class="title">
+        <div class="container">
+            <h1>Artist Directory</h1>
+            <p>
+                <form>
+                    <input id="searchbar" class="search" type="text" onkeyup="search()">
+                </form>
+                <button id="openForm" type="submit" class="btn" onclick="openPopup()">Add Artist</button>
+            </p>
+        </div>
+        <hr>
+    </div>
+    
+    <div class="popupForm">
+        <div id="popup">
+            <div class="container">
+            <form>
+                <input id="artistName" class="artistForm" type="text" name="name" maxlength="40" placeholder="Artist's Name">
+                <input id="artistQuote" class="artistForm" type="text" name="school" maxlength="40" placeholder="Artist's Quote">
+                <input id="artistImage" class="artistForm" type="url" name="image" placeholder="Artist's Picture Link">
+            </form>
+            <button class="artistForm" type="submit" class="btn" onclick="addArtist()">Add Artist</button>
+            
+            </div>
+        </div>
+    </div>
+</body>
+</html>
