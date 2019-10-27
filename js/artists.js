@@ -6,7 +6,7 @@ var path = require('path');
 
 
 
-async function deleteIndex(id) {
+async function deleteIndex(id, res) {
     var response = await readFile();
     var key = parseInt(id);
     var index = response.findIndex(obj => obj.id == key);
@@ -18,6 +18,7 @@ async function deleteIndex(id) {
           console.log("File successfully written to!");
         }
       });
+    res.json(response);
 
 }
 
@@ -32,7 +33,9 @@ function readFile() {
     }));
 }
 
-async function addArtist(name, quote, img, id) {
+async function addArtist(name, quote, img, id, res) {
+
+  console.log(__dirname);
 
     var response = await readFile();
 
@@ -45,9 +48,27 @@ async function addArtist(name, quote, img, id) {
           console.log("File successfully written to!");
         }
       });
+
+    res.json(response);
+
+    
+}
+
+async function search(string, res) {
+  
+  var artists = await readFile();
+  var filtered = [];
+
+  for (var i = 0; i < artists.length; ++i) {
+    if (artists[i].name.toLowerCase().substring(0, string.length) === string) {
+        filtered.push(artists[i]);
+    }
+  }
+  res.json(filtered);
 }
 
 module.exports = {
     addArtist: addArtist,
-    deleteIndex: deleteIndex
+    deleteIndex: deleteIndex,
+    search: search
 }

@@ -16,9 +16,7 @@ app.get('/', function (request, response) {
 
 app.post('/delete', function (request, response) {
     let id = request.body.id;
-    console.log(id);
-    artist.deleteIndex(id);
-    response.json({"200": "OK"});
+    artist.deleteIndex(id, response);
 })
 
 app.post('/add', function (request, response) {
@@ -26,8 +24,12 @@ app.post('/add', function (request, response) {
     let quote = request.body.quote;
     let img = request.body.image;
     let id = request.body.id
-    artist.addArtist(name, quote, img, id);
-    response.json({"200": "OK"});
+    artist.addArtist(name, quote, img, id, response);
+})
+
+app.post('/search', function (request, response) {
+    let string = request.body.search;
+    artist.search(string, response);
 })
 
 app.listen(process.env.PORT || 3000, () => console.log('Server is running on 3000'));

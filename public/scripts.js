@@ -1,4 +1,3 @@
-var artists = [];
 
 async function deleteFromServer(id) {
     // Default options are marked with *
@@ -14,7 +13,8 @@ async function deleteFromServer(id) {
             }
         });
         const json = await response.json();
-        console.log('Success:', JSON.stringify(json));
+        deleteAllArtists();
+        displayArtist(json);
     } catch (error) {
         console.error('Error:', error);
     }
@@ -44,22 +44,16 @@ async function addToServer(aName, aQuote, aImg, id) {
             }
         });
         const json = await response.json();
-        console.log('Success:', JSON.stringify(json));
+        deleteAllArtists();
+        displayArtist(json);
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
 async function initialize() {
-    // if (storage.getItem('names') != null) {
-    //     artistNames = JSON.parse(storage.getItem('names'));
-    //     artistQuote = JSON.parse(storage.getItem('quotes'));
-    //     artistImage = JSON.parse(storage.getItem('images'));
-    //     updateStorage();
-    //     displayArtist();
-    // }
-    artists = await readTextFile("./data.json");
-    displayArtist();
+    var artists = await readTextFile("./data.json");
+    displayArtist(artists);
 }
 
 function openPopup() {
@@ -82,24 +76,13 @@ async function addArtist() {
     while(id == now){
         id = (new Date()).valueOf();
     }
-
     id = parseInt(id);
-
-    artists.push(
-        {
-            'name': name,
-            'quote' : quote,
-            'image' : img,
-            'id' : id
-        });
 
     addToServer(name, quote, img, id);
     document.getElementById("artistName").value = "";
     document.getElementById("artistQuote").value = "";
     document.getElementById("artistImage").value = "";
     closePopup();
-    deleteAllArtists();
-    displayArtist();
 }
 
 function deleteAllArtists() {
@@ -109,7 +92,7 @@ function deleteAllArtists() {
     }
 }
 
-function displayArtist() {
+function displayArtist(artists) {
     for (var i = 0; i < artists.length; ++i) {
         displaySelectArtist(artists[i].name, artists[i].quote, artists[i].image, artists[i].id);
     }
@@ -152,11 +135,7 @@ function displaySelectArtist(name, quote, imagesrc, id) {
 function deleteCard(id) {
     var card = document.getElementById(id);
     card.parentNode.removeChild(card);
-    var index = artists.findIndex(obj => obj.id == id);
-    artists.splice(index, 1);
     deleteFromServer(id);
-    deleteAllArtists();
-    displayArtist();
 }
 
 function createDiv(tag, name) {
@@ -165,13 +144,23 @@ function createDiv(tag, name) {
     return newDiv;
 }
 
-function search() {
-    var text = document.getElementById("searchbar").value.toLowerCase();
-    deleteAllArtists();
-    var textLength = text.length;
-    for (var i = 0; i < artists.length; ++i) {
-        if (artists[i].name.toLowerCase().substring(0, textLength) === text) {
-            displaySelectArtist(artists[i].name, artists[i].quote, artists[i].image, artists[i].id);
-        }
+async function search() {
+    const text = document.getElementById("searchbar").value.toLowerCase();
+    const url = "/search";
+    const data = {"search" : text};
+    console.log(data);
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        deleteAllArtists();
+        displayArtist(json);
+    } catch (error) {
+        console.error('Error:', error);
     }
 }
