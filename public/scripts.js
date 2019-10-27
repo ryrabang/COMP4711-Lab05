@@ -148,7 +148,6 @@ async function search() {
     const text = document.getElementById("searchbar").value.toLowerCase();
     const url = "/search";
     const data = {"search" : text};
-    console.log(data);
     try {
         const response = await fetch(url, {
             method: 'POST', // or 'PUT'
